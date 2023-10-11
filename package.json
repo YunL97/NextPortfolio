@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "local": "env-cmd -f .env.local next dev -p 6600",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build:dev": "env-cmd -f .env.development next build",
+    "start": "next start -p 6600",
+    "start:dev": "env-cmd -f .env.development next start -p 6600"
   },
   "dependencies": {
+    "env-cmd": "^10.1.0",
     "next": "latest",
     "pnpm": "^8.8.0",
     "react": "latest",
