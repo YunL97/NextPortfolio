@@ -24,3 +24,4 @@
   * 원래 서버에서 데이터를 가져오려면 getServerSideProps or getStaticProps 함수를 사용해야하고 무조건 최상단에서 fetch후 page에 props로 넘겨줄 수 밖에 없는 구조로 인해서 실제 데이터를 사용하는 하위 컴포넌트의 depth 까지 props drilling이 불가피했는데 rsc는 그자체가 서버에서 렌더링되서 컴포넌트 내부에서 data fetch를 실행해도 무관 -> next 13버전 app directory에서는 기본적으로 모든 컴포넌트가 rsc 이기 때문에 getServerSideProps / getStaticProps는 불필요한 함수가 되었다
   * RSC는 최종 결과물이 html이 아닌 직렬화된 스트림 형태로 데이터를 받아오기 때문에 클라이언트에서 스트림을 해석하여 vitualDOM을 형성하고 Reconciliation을 통해 뷰를 갱신하는 과정을 거치게 된다 -> 화면에 변경사항이 생겨서 서버에서 새로운 정보를 받아와도 새로운 스크린으로 가는것이 아닌 기존 화면의 state등 context를 유지한채로 벼경된 사항만 선택적으로 반영할 수 있다
 * layout.js 파일이 기본적인 웹페이지의 골격을 구성 children의 코드를 page.js 가 리턴한값을 칠드런 자리에 가져옴
+* .next 폴더
