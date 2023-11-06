@@ -33,3 +33,4 @@
 ```
 {props.params.asd}
 ```
+* layout.js 에서 generateMetadata 사용하면 동적이 되고, metadata는 적용되지 않는다
