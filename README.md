@@ -34,3 +34,11 @@
 {props.params.asd}
 ```
 * layout.js 에서 generateMetadata 사용하면 동적이 되고, metadata는 적용되지 않는다
+
+
+
+-----------------------------------------
+# 프로젝트 개발하면서 알게된것 정리
+* (name) 폴더구조를 사용해서 route가 될 수 있는 페이지 들을 하나의 그룹으로 묶을 수 있다.
+  * ex) (route)안에 main폴더 안에 page가 있으면 /main
+* _name 폴더구조를 사용하면 route를 생성하지 않는다.
