@@ -1,6 +1,9 @@
 
 import type { Metadata } from 'next'
 import logo from '../../public/logo.svg'
+import Image from 'next/image'
+
+
 
 
 
@@ -13,7 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-      <Image
+        <div>
+        <Image
               src="/vercel.svg"
               alt="Vercel Logo"
               className="dark:invert"
@@ -21,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               height={24}
               priority
             />
+        </div>
         <img src={logo}></img>
         {children}</body>
     </html>
