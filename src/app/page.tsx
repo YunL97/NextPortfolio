@@ -1,4 +1,4 @@
-import TopNavigation from '@/app/components/mainpage/topnavigation'
+import TopNavigation from '@/app/_components/common/TopNavigation'
 import Image from 'next/image'
 import Link from 'next/link'
 

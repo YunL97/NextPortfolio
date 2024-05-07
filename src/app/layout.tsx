@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import RecoilRootWrapper from './store/RecoilWrapper'
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export default function RootLayout({
             />
           </a>
         </div>
-        <RecoilRootWrapper>{children}</RecoilRootWrapper>
+        {children}
       </body>
     </html>
   )
