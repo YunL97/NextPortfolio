@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import "./globals.css";
+import './globals.css'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: '이윤식 포트폴리오',
@@ -15,8 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>
-          <a href="/">
+        <div className="absolute top-0 mx-10 my-5">
+          <Link href="/">
             <Image
               src="logo.svg"
               alt="Vercel Logo"
@@ -25,9 +26,9 @@ export default function RootLayout({
               height={30}
               priority
             />
-          </a>
+          </Link>
         </div>
-        {children}
+        <div>{children}</div>
       </body>
     </html>
   )
