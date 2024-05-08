@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
-import Image from 'next/image'
-import './globals.css'
-import Link from 'next/link'
+import type { Metadata } from "next"
+import Image from "next/image"
+import "./globals.css"
+import Link from "next/link"
+import { FontClassNames } from "./styles/fonts"
 
 export const metadata: Metadata = {
-  title: '이윤식 포트폴리오',
-  description: ''
+  title: "이윤식 포트폴리오",
+  description: ""
 }
 
 export default function RootLayout({
@@ -15,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={FontClassNames}>
         <div className="absolute top-0 mx-10 my-5">
           <Link href="/">
             <Image
