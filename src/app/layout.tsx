@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={FontClassNames}>
-        <div className="absolute top-0 mx-10 my-5">
+        <div className="absolute top-0 mx-10 my-5 ">
           <Link href="/">
             <Image
               src="logo.svg"
