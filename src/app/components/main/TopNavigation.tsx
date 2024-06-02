@@ -4,8 +4,9 @@ interface ButtonComponentProps {
   refs: React.RefObject<HTMLDivElement>[]
 }
 
-const TopNavigation = (props: any) => {
+const TopNavigation: React.FC<ButtonComponentProps> = ({ refs }) => {
   const scrollToElement = (index: number) => {
+    console.log("asdf")
     if (refs[index] && refs[index].current) {
       refs[index].current.scrollIntoView({ behavior: "smooth" })
     }
@@ -36,19 +37,19 @@ const TopNavigation = (props: any) => {
       </div>
       <div className=" mt-3 lg:block hidden">
         <button
-          onClick={() => scrollToElement(refs.targetRef2)}
+          onClick={() => scrollToElement(0)}
           className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
         >
-          Skills
+          Skills12
         </button>
         <button
-          onClick={() => scrollToElement(refs.targetRef3)}
+          onClick={() => scrollToElement(1)}
           className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
         >
           Career
         </button>
         <button
-          onClick={() => scrollToElement(refs.targetRef1)}
+          onClick={() => scrollToElement(2)}
           className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
         >
           About me
