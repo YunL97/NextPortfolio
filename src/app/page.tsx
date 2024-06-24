@@ -3,6 +3,7 @@
 import { RefObject, useRef } from "react"
 import Name from "./components/main/Name"
 import Skills from "./components/main/Skills"
+import TopNavigation from "./components/main/TopNavigation"
 
 export default function Home() {
   const targetRef1 = useRef<HTMLDivElement>(null)
@@ -11,33 +12,14 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-gray-200 h-80">
+      <div className="bg-gray-200 h-96">
         <div className="inset-0 flex justify-end w-11/12 max-w-full ">
-          <div className="flex mt-3">
-            <button
-              onClick={() => scrollToElement(targetRef2)}
-              className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
-            >
-              Skills
-            </button>
-            <button
-              onClick={() => scrollToElement(targetRef3)}
-              className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
-            >
-              Career
-            </button>
-            <button
-              onClick={() => scrollToElement(targetRef1)}
-              className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
-            >
-              About me
-            </button>
-          </div>
+          <TopNavigation refs={[targetRef1, targetRef2, targetRef3]} />
         </div>
         <Name />
       </div>
       {/* Skills */}
-      <div ref={targetRef2}>
+      <div ref={targetRef1}>
         <Skills />
       </div>
       {/* Career */}
