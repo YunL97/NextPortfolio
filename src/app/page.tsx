@@ -2,8 +2,10 @@
 //cmd shift t => 테일윈드 정렬
 import { RefObject, useRef } from "react"
 import Name from "./components/main/Name"
-import Skills from "./components/main/Skills"
+import Skills from "./components/main/Skill/skills"
 import TopNavigation from "./components/main/TopNavigation"
+import Careers from "./components/main/career/careers"
+import Projects from "./components/main/projects/Projects"
 
 export default function Home() {
   const targetRef1 = useRef<HTMLDivElement>(null)
@@ -23,9 +25,9 @@ export default function Home() {
         <Skills />
       </div>
       {/* Career */}
-      <h1 ref={targetRef2}>Hello world!</h1>
-      {/* About me */}
-      <h1 ref={targetRef2}>Hello world!</h1>
+      <Careers />
+      {/*projects*/}
+      <Projects />
     </>
   )
 }
