@@ -4,8 +4,8 @@ import { RefObject, useRef } from "react"
 import Name from "./components/main/Name"
 import Skills from "./components/main/Skill/skills"
 import TopNavigation from "./components/main/TopNavigation"
-import Careers from "./components/main/career/careers"
 import Projects from "./components/main/projects/Projects"
+import Careers from "./components/main/career/Careers"
 
 export default function Home() {
   const targetRef1 = useRef<HTMLDivElement>(null)
@@ -25,7 +25,9 @@ export default function Home() {
         <Skills />
       </div>
       {/* Career */}
-      <Careers />
+      <div ref={targetRef2}>
+        <Careers />
+      </div>
       {/*projects*/}
       <Projects />
     </>
