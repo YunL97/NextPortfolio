@@ -8,7 +8,7 @@ const TopNavigation: React.FC<ButtonComponentProps> = ({ refs }) => {
   const scrollToElement = (index: number) => {
     console.log("asdf")
     if (refs[index] && refs[index].current) {
-      refs[index].current.scrollIntoView({ behavior: "smooth" })
+      refs[index].current?.scrollIntoView({ behavior: "smooth" })
     }
   }
 
