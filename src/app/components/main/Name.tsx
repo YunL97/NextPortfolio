@@ -1,4 +1,4 @@
-import TestComponent from "@/app/(route)/testpage/page"
+import TestComponent from "@/app/(route)/podo/page"
 
 import Skills from "./Skill/skills"
 
