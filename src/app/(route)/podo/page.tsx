@@ -1,3 +1,4 @@
+import Calendar from "@/app/components/podo/LeftCalender"
 import { useBearStore } from "@/app/store/count"
 import useStore from "@/app/store/hydration"
 
@@ -13,6 +14,11 @@ export default function TestComponent() {
     <>
       {/* <button onClick={bears?.increaseBears}>Increase Bears</button> */}
       {/* <div>{bears?.bears}</div> */}
+      <div className="h-screen">
+        <div className="w-1/3 h-2/3">
+          <Calendar />
+        </div>
+      </div>
     </>
   )
 }
