@@ -84,21 +84,27 @@ const Calendar = () => {
         ref={containerRef}
       >
         {days.map((day, index) => (
-          <div
-            key={index}
-            className={`p-4 w-full rounded h-16 ${
-              day.toDateString() === currentDate.toDateString()
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black"
-            }`}
-            ref={
-              day.toDateString() === currentDate.toDateString()
-                ? todayRef
-                : null
-            }
+          <button
+            onClick={() => {
+              console.log("asdf")
+            }}
           >
-            {day.getDate()}
-          </div>
+            <div
+              key={index}
+              className={`p-4 w-full rounded h-16 ${
+                day.toDateString() === currentDate.toDateString()
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black"
+              }`}
+              ref={
+                day.toDateString() === currentDate.toDateString()
+                  ? todayRef
+                  : null
+              }
+            >
+              {day.getDate()}
+            </div>
+          </button>
         ))}
       </div>
     </div>
