@@ -2,10 +2,15 @@
 
 import { useState, useEffect, useRef } from "react"
 
-const generateDaysInMonth = (year: number, month: number) => {
-  const date = new Date(year, month, 1)
+interface Dat {
+  year: number
+  month: number
+}
+
+const generateDaysInMonth = (dat: Dat) => {
+  const date = new Date(dat.year, dat.month, 1)
   const days = []
-  while (date.getMonth() === month) {
+  while (date.getMonth() === dat.month) {
     days.push(new Date(date))
     date.setDate(date.getDate() + 1)
   }
@@ -31,8 +36,11 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth())
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear())
-  const days = generateDaysInMonth(currentYear, currentMonth)
-  const containerRef = useRef(null)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  const dat: Dat = { year: currentYear, month: currentMonth }
+  const days = generateDaysInMonth(dat)
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -59,10 +67,14 @@ const Calendar = () => {
     }
   }
 
+  const handleDateClick = (day: Date) => {
+    setSelectedDate(day)
+  }
+
   return (
     <div className="flex flex-col items-center p-4 bg-gray-100 h-full">
       <h1 className="text-2xl font-bold mb-4">Daily Calendar</h1>
-      <div className="flex justify-between items-center w-full mb-4 ">
+      <div className="flex justify-between items-center w-full mb-4">
         <button
           onClick={handlePrevMonth}
           className="bg-blue-500 text-white py-2 px-4 rounded"
@@ -80,19 +92,19 @@ const Calendar = () => {
         </button>
       </div>
       <div
-        className="flex flex-col space-y-2 overflow-y-scroll h-full w-full "
+        className="flex flex-col space-y-2 overflow-y-scroll h-full w-full"
         ref={containerRef}
       >
         {days.map((day, index) => (
           <button
-            onClick={() => {
-              console.log("asdf")
-            }}
+            key={index} // key 속성을 여기로 이동
+            onClick={() => handleDateClick(day)}
+            className="w-full"
           >
             <div
-              key={index}
               className={`p-4 w-full rounded h-16 ${
-                day.toDateString() === currentDate.toDateString()
+                day.toDateString() ===
+                (selectedDate?.toDateString() || currentDate.toDateString())
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
               }`}
