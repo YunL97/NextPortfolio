@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import LeftCalenderDay from "./LeftCalenderAtom/LeftCalenderDay"
+import LeftCalenderButton from "./LeftCalenderAtom/LeftCalenderButton"
 
 interface Dat {
   year: number
@@ -75,48 +77,35 @@ const Calendar = () => {
     <div className="flex flex-col items-center p-4 bg-gray-100 h-full">
       <h1 className="text-2xl font-bold mb-4">Daily Calendar</h1>
       <div className="flex justify-between items-center w-full mb-4">
-        <button
-          onClick={handlePrevMonth}
-          className="bg-blue-500 text-white py-2 px-4 rounded"
-        >
-          Previous Month
-        </button>
-        <h2 className="text-xl font-bold">
+        <LeftCalenderButton
+          handleMonth={handlePrevMonth}
+          monthName={"Previous Month"}
+        />
+        <h2 className="text-xl font-bold text-center">
           {monthNames[currentMonth]} {currentYear}
         </h2>
-        <button
-          onClick={handleNextMonth}
-          className="bg-blue-500 text-white py-2 px-4 rounded"
-        >
-          Next Month
-        </button>
+        <LeftCalenderButton
+          handleMonth={handleNextMonth}
+          monthName={"Next Month"}
+        />
       </div>
       <div
         className="flex flex-col space-y-2 overflow-y-scroll h-full w-full"
         ref={containerRef}
       >
         {days.map((day, index) => (
-          <button
-            key={index} // key 속성을 여기로 이동
-            onClick={() => handleDateClick(day)}
-            className="w-full"
-          >
-            <div
-              className={`p-4 w-full rounded h-16 ${
-                day.toDateString() ===
-                (selectedDate?.toDateString() || currentDate.toDateString())
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-black"
-              }`}
-              ref={
-                day.toDateString() === currentDate.toDateString()
-                  ? todayRef
-                  : null
-              }
-            >
-              {day.getDate()}
-            </div>
-          </button>
+          <LeftCalenderDay
+            key={index}
+            day={day}
+            selectedDate={selectedDate}
+            currentDate={currentDate}
+            onClick={handleDateClick}
+            ref={
+              day.toDateString() === currentDate.toDateString()
+                ? todayRef
+                : null
+            }
+          />
         ))}
       </div>
     </div>
