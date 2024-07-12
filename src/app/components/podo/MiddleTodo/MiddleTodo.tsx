@@ -1,5 +1,6 @@
 "use client"
 
+import { useDayStore } from "@/app/_store/nowday"
 import { useState, useEffect, useRef } from "react"
 
 interface Todo {
@@ -8,9 +9,50 @@ interface Todo {
   completed: boolean
 }
 
+interface dayTodo {
+  day: string
+  todo: Todo[]
+}
+
 const MiddleTodo = () => {
+  const { day, month, year } = useDayStore()
   const [todos, setTodos] = useState<Todo[]>([])
   const [newTodo, setNewTodo] = useState("")
+
+  useEffect(() => {
+    const savedTodos = localStorage.getItem("todos200")
+    if (savedTodos) {
+      const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
+      const currentDayTodos = parsedTodos.find(
+        item => item.day === `${day}-${month}-${year}`
+      )
+      if (currentDayTodos) {
+        console.log(currentDayTodos)
+        setTodos(currentDayTodos.todo)
+      } else {
+        setTodos([])
+      }
+    }
+  }, [day])
+
+  useEffect(() => {
+    const dayTodo: dayTodo = { day: `${day}-${month}-${year}`, todo: todos }
+    const savedTodos = localStorage.getItem("todos200")
+    if (savedTodos) {
+      const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
+      const existingIndex = parsedTodos.findIndex(
+        item => item.day === dayTodo.day
+      )
+      if (existingIndex > -1) {
+        parsedTodos[existingIndex] = dayTodo
+      } else {
+        parsedTodos.push(dayTodo)
+      }
+      localStorage.setItem("todos200", JSON.stringify(parsedTodos))
+    } else {
+      localStorage.setItem("todos200", JSON.stringify([dayTodo]))
+    }
+  }, [todos])
 
   const handleAddTodo = () => {
     if (newTodo.trim()) {

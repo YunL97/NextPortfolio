@@ -24,13 +24,9 @@ export default function TestComponent() {
           <div className="w-1/3">
             <MiddleTodo />
           </div>
-          <div className="w-1/3">
-            <LeftCalender />
-          </div>
+          <div className="w-1/3">{/* <LeftCalender /> */}</div>
         </div>
-        <div className="h-1/3">
-          <LeftCalender />
-        </div>
+        <div className="h-1/3">{/* <LeftCalender /> */}</div>
       </div>
     </>
   )

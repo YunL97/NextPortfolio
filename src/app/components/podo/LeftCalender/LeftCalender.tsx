@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import LeftCalenderDay from "./LeftCalenderAtom/LeftCalenderDay"
 import LeftCalenderButton from "./LeftCalenderAtom/LeftCalenderButton"
+import { useDayStore } from "@/app/_store/nowday"
 
 interface Dat {
   year: number
@@ -35,6 +36,8 @@ const monthNames = [
 ]
 
 const Calendar = () => {
+  const { day, month, year, setDay, setMonth, setYear } = useDayStore()
+
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth())
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear())
@@ -69,8 +72,12 @@ const Calendar = () => {
     }
   }
 
-  const handleDateClick = (day: Date) => {
-    setSelectedDate(day)
+  const handleDateClick = (currentDay: Date) => {
+    setSelectedDate(currentDay)
+    // console.log(day.getDate(), currentMonth, currentYear)
+    setDay(currentDay.getDate().toString())
+    setMonth(currentMonth.toString())
+    setYear(currentYear.toString())
   }
 
   return (
