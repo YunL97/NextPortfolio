@@ -4,12 +4,14 @@ import { useState, useEffect, useRef } from "react"
 import LeftCalenderDay from "./LeftCalenderAtom/LeftCalenderDay"
 import LeftCalenderButton from "./LeftCalenderAtom/LeftCalenderButton"
 import { useDayStore } from "@/app/_store/nowday"
+import { dayTodo } from "../MiddleTodo/MiddleTodo"
 
 interface Dat {
   year: number
   month: number
 }
 
+// 그 달의 날짜 가져오기
 const generateDaysInMonth = (dat: Dat) => {
   const date = new Date(dat.year, dat.month, 1)
   const days = []
@@ -42,18 +44,27 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth())
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-
+  const [todoLocalstorage, setTodoLocalstorage] = useState<dayTodo[] | []>([])
   const dat: Dat = { year: currentYear, month: currentMonth }
   const days = generateDaysInMonth(dat)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
-  console.log(currentDate.getDate())
+
+  //오늘 날짜로 스크롤 이동
   useEffect(() => {
     if (todayRef.current) {
       todayRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
       setDay(currentDate.getDate().toString())
     }
   }, [])
+  //데이터 가져오기
+  useEffect(() => {
+    const savedTodos = localStorage.getItem("todos1000")
+    if (savedTodos) {
+      setTodoLocalstorage(JSON.parse(savedTodos))
+    }
+    // console.log(day, month, year)
+  }, [day])
 
   const handlePrevMonth = () => {
     if (currentMonth === 0) {
@@ -75,10 +86,25 @@ const Calendar = () => {
 
   const handleDateClick = (currentDay: Date) => {
     setSelectedDate(currentDay)
-    // console.log(day.getDate(), currentMonth, currentYear)
+    console.log(
+      currentDay.getDate().toString(),
+      (currentDay.getMonth() + 1).toString(),
+      currentDay.getFullYear().toString()
+    )
     setDay(currentDay.getDate().toString())
-    setMonth(currentMonth.toString())
-    setYear(currentYear.toString())
+    setMonth((currentDay.getMonth() + 1).toString())
+    setYear(currentDay.getFullYear().toString())
+  }
+
+  const getTodoCount = (date: Date) => {
+    const formattedDate = `${date.getFullYear().toString()}-${(
+      date.getMonth() + 1
+    ).toString()}-${date.getDate().toString()}`
+    const dayTodo = todoLocalstorage.find(
+      todo => todo.day === formattedDate.toString()
+    )
+    // console.log(dayTodo?.todo.length)
+    return dayTodo ? dayTodo.todo.length : 0
   }
 
   return (
@@ -102,20 +128,26 @@ const Calendar = () => {
           className="flex flex-col space-y-2 h-full w-full overflow-auto"
           ref={containerRef}
         >
-          {days.map((day, index) => (
-            <LeftCalenderDay
-              key={index}
-              day={day}
-              selectedDate={selectedDate}
-              currentDate={currentDate}
-              onClick={handleDateClick}
-              ref={
-                day.toDateString() === currentDate.toDateString()
-                  ? todayRef
-                  : null
-              }
-            />
-          ))}
+          {days.map((day, index) => {
+            const formattedDate = day.toISOString().split("T")[0]
+            // console.log(formattedDate)
+            const todoCount = getTodoCount(day)
+            return (
+              <LeftCalenderDay
+                key={index}
+                day={day}
+                todoCount={todoCount.toString()}
+                selectedDate={selectedDate}
+                currentDate={currentDate}
+                onClick={handleDateClick}
+                ref={
+                  day.toDateString() === currentDate.toDateString()
+                    ? todayRef
+                    : null
+                }
+              />
+            )
+          })}
         </div>
       </div>
     </div>

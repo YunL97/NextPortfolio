@@ -9,25 +9,26 @@ interface Todo {
   completed: boolean
 }
 
-interface dayTodo {
+export interface dayTodo {
   day: string
   todo: Todo[]
 }
 
 const MiddleTodo = () => {
-  const { day, month, year } = useDayStore()
+  const { day, month, year, todayTodo, setTodayTodo, setComplatedTodo } =
+    useDayStore()
   const [todos, setTodos] = useState<Todo[]>([])
   const [newTodo, setNewTodo] = useState("")
 
+  //현재 날짜 todo 가져오기
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos200")
+    const savedTodos = localStorage.getItem("todos1000")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const currentDayTodos = parsedTodos.find(
-        item => item.day === `${day}-${month}-${year}`
+        item => item.day === `${year}-${month}-${day}`
       )
       if (currentDayTodos) {
-        console.log(currentDayTodos)
         setTodos(currentDayTodos.todo)
       } else {
         setTodos([])
@@ -35,9 +36,10 @@ const MiddleTodo = () => {
     }
   }, [day])
 
+  //todo add 했을때 localstorage 저장
   useEffect(() => {
-    const dayTodo: dayTodo = { day: `${day}-${month}-${year}`, todo: todos }
-    const savedTodos = localStorage.getItem("todos200")
+    const dayTodo: dayTodo = { day: `${year}-${month}-${day}`, todo: todos }
+    const savedTodos = localStorage.getItem("todos1000")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const existingIndex = parsedTodos.findIndex(
@@ -48,9 +50,9 @@ const MiddleTodo = () => {
       } else {
         parsedTodos.push(dayTodo)
       }
-      localStorage.setItem("todos200", JSON.stringify(parsedTodos))
+      localStorage.setItem("todos1000", JSON.stringify(parsedTodos))
     } else {
-      localStorage.setItem("todos200", JSON.stringify([dayTodo]))
+      localStorage.setItem("todos1000", JSON.stringify([dayTodo]))
     }
   }, [todos])
 
@@ -58,6 +60,8 @@ const MiddleTodo = () => {
     if (newTodo.trim()) {
       setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }])
       setNewTodo("")
+      setTodayTodo(todos.length)
+      setComplatedTodo(todos.filter(todo => todo.completed).length)
     }
   }
 
