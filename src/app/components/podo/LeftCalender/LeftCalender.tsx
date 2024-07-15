@@ -47,10 +47,11 @@ const Calendar = () => {
   const days = generateDaysInMonth(dat)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
-
+  console.log(currentDate.getDate())
   useEffect(() => {
     if (todayRef.current) {
       todayRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
+      setDay(currentDate.getDate().toString())
     }
   }, [])
 
