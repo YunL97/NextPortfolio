@@ -97,24 +97,26 @@ const Calendar = () => {
           monthName={"Next Month"}
         />
       </div>
-      <div
-        className="flex flex-col space-y-2 overflow-y-scroll h-full w-full"
-        ref={containerRef}
-      >
-        {days.map((day, index) => (
-          <LeftCalenderDay
-            key={index}
-            day={day}
-            selectedDate={selectedDate}
-            currentDate={currentDate}
-            onClick={handleDateClick}
-            ref={
-              day.toDateString() === currentDate.toDateString()
-                ? todayRef
-                : null
-            }
-          />
-        ))}
+      <div className="overflow-auto h-2/3 md:h-full w-full p-4">
+        <div
+          className="flex flex-col space-y-2 h-full w-full overflow-auto"
+          ref={containerRef}
+        >
+          {days.map((day, index) => (
+            <LeftCalenderDay
+              key={index}
+              day={day}
+              selectedDate={selectedDate}
+              currentDate={currentDate}
+              onClick={handleDateClick}
+              ref={
+                day.toDateString() === currentDate.toDateString()
+                  ? todayRef
+                  : null
+              }
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
