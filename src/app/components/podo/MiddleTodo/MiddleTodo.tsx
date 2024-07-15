@@ -15,8 +15,7 @@ export interface dayTodo {
 }
 
 const MiddleTodo = () => {
-  const { day, month, year, todayTodo, setTodayTodo, setComplatedTodo } =
-    useDayStore()
+  const { day, month, year, reRender, setReRender } = useDayStore()
   const [todos, setTodos] = useState<Todo[]>([])
   const [newTodo, setNewTodo] = useState("")
 
@@ -36,8 +35,9 @@ const MiddleTodo = () => {
     }
   }, [day])
 
-  //todo add 했을때 localstorage 저장
+  //todo add 했을때 localstorage 저장, 전역상태에 complated저장
   useEffect(() => {
+    setReRender(!reRender)
     const dayTodo: dayTodo = { day: `${year}-${month}-${day}`, todo: todos }
     const savedTodos = localStorage.getItem("todos1000")
     if (savedTodos) {
@@ -60,8 +60,6 @@ const MiddleTodo = () => {
     if (newTodo.trim()) {
       setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }])
       setNewTodo("")
-      setTodayTodo(todos.length)
-      setComplatedTodo(todos.filter(todo => todo.completed).length)
     }
   }
 

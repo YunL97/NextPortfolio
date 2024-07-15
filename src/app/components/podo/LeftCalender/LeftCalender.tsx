@@ -38,7 +38,8 @@ const monthNames = [
 ]
 
 const Calendar = () => {
-  const { day, month, year, setDay, setMonth, setYear } = useDayStore()
+  const { day, month, year, reRender, setDay, setMonth, setYear } =
+    useDayStore()
 
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth())
@@ -49,8 +50,8 @@ const Calendar = () => {
   const days = generateDaysInMonth(dat)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
-
   //오늘 날짜로 스크롤 이동
+  console.log("asdf")
   useEffect(() => {
     if (todayRef.current) {
       todayRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
@@ -64,7 +65,7 @@ const Calendar = () => {
       setTodoLocalstorage(JSON.parse(savedTodos))
     }
     // console.log(day, month, year)
-  }, [day])
+  }, [day, currentMonth, reRender])
 
   const handlePrevMonth = () => {
     if (currentMonth === 0) {
@@ -106,6 +107,16 @@ const Calendar = () => {
     // console.log(dayTodo?.todo.length)
     return dayTodo ? dayTodo.todo.length : 0
   }
+  const getComplateCount = (date: Date) => {
+    const formattedDate = `${date.getFullYear().toString()}-${(
+      date.getMonth() + 1
+    ).toString()}-${date.getDate().toString()}`
+    const dayTodo = todoLocalstorage.find(
+      todo => todo.day === formattedDate.toString()
+    )
+    // console.log(dayTodo?.todo.length)
+    return dayTodo ? dayTodo.todo.filter(todo => todo.completed).length : 0
+  }
 
   return (
     <div className="flex flex-col items-center p-4 bg-gray-100 h-full">
@@ -132,11 +143,13 @@ const Calendar = () => {
             const formattedDate = day.toISOString().split("T")[0]
             // console.log(formattedDate)
             const todoCount = getTodoCount(day)
+            const complatedCount = getComplateCount(day)
             return (
               <LeftCalenderDay
                 key={index}
                 day={day}
                 todoCount={todoCount.toString()}
+                complatedCount={complatedCount.toString()}
                 selectedDate={selectedDate}
                 currentDate={currentDate}
                 onClick={handleDateClick}

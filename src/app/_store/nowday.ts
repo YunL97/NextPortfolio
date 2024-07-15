@@ -7,13 +7,11 @@ interface DayState {
   day: string
   month: string
   year: string
-  todayTodo: number
-  complatedTodo: number
+  reRender: boolean
   setDay: (day: string) => void
   setMonth: (month: string) => void
   setYear: (year: string) => void
-  setTodayTodo: (todayTodo: number) => void
-  setComplatedTodo: (complatedTodo: number) => void
+  setReRender: (reRender: boolean) => void
 }
 
 export const useDayStore = create<DayState>()(
@@ -22,13 +20,11 @@ export const useDayStore = create<DayState>()(
       day: "",
       month: "",
       year: "",
-      todayTodo: 0,
-      complatedTodo: 0,
+      reRender: false,
       setDay: day => set({ day }),
       setMonth: month => set({ month }),
       setYear: year => set({ year }),
-      setTodayTodo: todayTodo => set({ todayTodo }),
-      setComplatedTodo: complatedTodo => set({ complatedTodo })
+      setReRender: reRender => set({ reRender })
     }),
     {
       name: "Day-store"

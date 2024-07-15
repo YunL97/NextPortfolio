@@ -3,6 +3,7 @@ import { forwardRef } from "react"
 interface LeftCalenderDayProps {
   day: Date
   todoCount: String
+  complatedCount: String
   selectedDate: Date | null
   currentDate: Date
   onClick: (day: Date) => void
@@ -23,7 +24,8 @@ const LeftCalenderDay = forwardRef(
           }`}
           ref={ref}
         >
-          {props.day.getDate()} {props.todoCount}, 600분(공부양)
+          {props.day.getDate()} {props.complatedCount} / {props.todoCount},
+          600분(공부양)
         </div>
       </button>
     )
