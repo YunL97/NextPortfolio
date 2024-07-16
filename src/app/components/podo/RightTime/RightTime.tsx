@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react"
 import { dayTodo } from "../MiddleTodo/MiddleTodo"
 
 const RightTime = () => {
-  const { day, month, year, reRender, setReRender } = useDayStore()
+  const { day, month, year, reRender, setReRender, setStudyTime } =
+    useDayStore()
   const [seconds, setSeconds] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -37,6 +38,7 @@ const RightTime = () => {
   // 시작 멈춤했을 때 locolstorage에 저장
   useEffect(() => {
     setReRender(!reRender)
+    setStudyTime(seconds)
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)

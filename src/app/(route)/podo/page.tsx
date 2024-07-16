@@ -1,3 +1,4 @@
+import Chart from "@/app/components/podo/Chart/Chart"
 import LeftCalender from "@/app/components/podo/LeftCalender/LeftCalender"
 import LeftCalenderDay from "@/app/components/podo/LeftCalender/LeftCalenderAtom/LeftCalenderDay"
 import MiddleTodo from "@/app/components/podo/MiddleTodo/MiddleTodo"
@@ -22,7 +23,9 @@ export default function podoComponent() {
             <RightTime />
           </div>
         </div>
-        <div className="md:h-1/3">{/* <LeftCalender /> */}</div>
+        <div className="md:h-1/3">
+          <Chart />
+        </div>
       </div>
     </>
   )

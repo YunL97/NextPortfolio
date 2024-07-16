@@ -127,7 +127,6 @@ const Calendar = () => {
     const dayTodo = todoLocalstorage.find(
       todo => todo.day === formattedDate.toString()
     )
-    // console.log(dayTodo?.todo.length)
     return dayTodo?.studyTime ? dayTodo.studyTime : 0
   }
 

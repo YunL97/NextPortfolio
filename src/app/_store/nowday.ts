@@ -8,10 +8,12 @@ interface DayState {
   month: string
   year: string
   reRender: boolean
+  studyTime: number
   setDay: (day: string) => void
   setMonth: (month: string) => void
   setYear: (year: string) => void
   setReRender: (reRender: boolean) => void
+  setStudyTime: (studyTime: number) => void
 }
 
 export const useDayStore = create<DayState>()(
@@ -21,10 +23,12 @@ export const useDayStore = create<DayState>()(
       month: "",
       year: "",
       reRender: false,
+      studyTime: 0,
       setDay: day => set({ day }),
       setMonth: month => set({ month }),
       setYear: year => set({ year }),
-      setReRender: reRender => set({ reRender })
+      setReRender: reRender => set({ reRender }),
+      setStudyTime: studyTime => set({ studyTime })
     }),
     {
       name: "Day-store"

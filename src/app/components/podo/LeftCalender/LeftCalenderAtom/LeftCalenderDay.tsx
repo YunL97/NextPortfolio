@@ -26,8 +26,8 @@ const LeftCalenderDay = forwardRef(
           }`}
           ref={ref}
         >
-          {props.day.getDate()} {props.complatedCount} / {props.todoCount} ---,
-          {formatTime(props.studyTime ?? 0)}(공부양)
+          {props.day.getDate()} {props.complatedCount} / {props.todoCount}
+          <span className="mx-4">{formatTime(props.studyTime ?? 0)}</span>
         </div>
       </button>
     )
