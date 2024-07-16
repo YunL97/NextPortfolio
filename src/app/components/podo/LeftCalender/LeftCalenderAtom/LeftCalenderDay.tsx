@@ -1,9 +1,11 @@
 import { forwardRef } from "react"
+import { formatTime } from "../../RightTime/RightTime"
 
 interface LeftCalenderDayProps {
   day: Date
   todoCount: String
   complatedCount: String
+  studyTime?: number
   selectedDate: Date | null
   currentDate: Date
   onClick: (day: Date) => void
@@ -24,8 +26,8 @@ const LeftCalenderDay = forwardRef(
           }`}
           ref={ref}
         >
-          {props.day.getDate()} {props.complatedCount} / {props.todoCount},
-          600분(공부양)
+          {props.day.getDate()} {props.complatedCount} / {props.todoCount} ---,
+          {formatTime(props.studyTime ?? 0)}(공부양)
         </div>
       </button>
     )

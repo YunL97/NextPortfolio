@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import LeftCalenderDay from "./LeftCalenderAtom/LeftCalenderDay"
 import LeftCalenderButton from "./LeftCalenderAtom/LeftCalenderButton"
 import { useDayStore } from "@/app/_store/nowday"
@@ -51,7 +51,6 @@ const Calendar = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
   //오늘 날짜로 스크롤 이동
-  console.log("asdf")
   useEffect(() => {
     if (todayRef.current) {
       todayRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
@@ -60,42 +59,45 @@ const Calendar = () => {
   }, [])
   //데이터 가져오기
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos1000")
+    const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       setTodoLocalstorage(JSON.parse(savedTodos))
     }
     // console.log(day, month, year)
   }, [day, currentMonth, reRender])
 
-  const handlePrevMonth = () => {
+  const handlePrevMonth = useCallback(() => {
     if (currentMonth === 0) {
       setCurrentMonth(11)
       setCurrentYear(currentYear - 1)
     } else {
       setCurrentMonth(currentMonth - 1)
     }
-  }
+  }, [currentMonth])
 
-  const handleNextMonth = () => {
+  const handleNextMonth = useCallback(() => {
     if (currentMonth === 11) {
       setCurrentMonth(0)
       setCurrentYear(currentYear + 1)
     } else {
       setCurrentMonth(currentMonth + 1)
     }
-  }
+  }, [currentMonth])
 
-  const handleDateClick = (currentDay: Date) => {
-    setSelectedDate(currentDay)
-    console.log(
-      currentDay.getDate().toString(),
-      (currentDay.getMonth() + 1).toString(),
-      currentDay.getFullYear().toString()
-    )
-    setDay(currentDay.getDate().toString())
-    setMonth((currentDay.getMonth() + 1).toString())
-    setYear(currentDay.getFullYear().toString())
-  }
+  const handleDateClick = useCallback(
+    (currentDay: Date) => {
+      setSelectedDate(currentDay)
+      console.log(
+        currentDay.getDate().toString(),
+        (currentDay.getMonth() + 1).toString(),
+        currentDay.getFullYear().toString()
+      )
+      setDay(currentDay.getDate().toString())
+      setMonth((currentDay.getMonth() + 1).toString())
+      setYear(currentDay.getFullYear().toString())
+    },
+    [currentMonth]
+  )
 
   const getTodoCount = (date: Date) => {
     const formattedDate = `${date.getFullYear().toString()}-${(
@@ -116,6 +118,17 @@ const Calendar = () => {
     )
     // console.log(dayTodo?.todo.length)
     return dayTodo ? dayTodo.todo.filter(todo => todo.completed).length : 0
+  }
+
+  const getStudyTime = (date: Date) => {
+    const formattedDate = `${date.getFullYear().toString()}-${(
+      date.getMonth() + 1
+    ).toString()}-${date.getDate().toString()}`
+    const dayTodo = todoLocalstorage.find(
+      todo => todo.day === formattedDate.toString()
+    )
+    // console.log(dayTodo?.todo.length)
+    return dayTodo?.studyTime ? dayTodo.studyTime : 0
   }
 
   return (
@@ -144,6 +157,7 @@ const Calendar = () => {
             // console.log(formattedDate)
             const todoCount = getTodoCount(day)
             const complatedCount = getComplateCount(day)
+            const studyTime = getStudyTime(day)
             return (
               <LeftCalenderDay
                 key={index}
@@ -151,6 +165,7 @@ const Calendar = () => {
                 todoCount={todoCount.toString()}
                 complatedCount={complatedCount.toString()}
                 selectedDate={selectedDate}
+                studyTime={studyTime}
                 currentDate={currentDate}
                 onClick={handleDateClick}
                 ref={

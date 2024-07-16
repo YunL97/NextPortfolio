@@ -12,6 +12,7 @@ interface Todo {
 export interface dayTodo {
   day: string
   todo: Todo[]
+  studyTime?: number
 }
 
 const MiddleTodo = () => {
@@ -21,7 +22,7 @@ const MiddleTodo = () => {
 
   //현재 날짜 todo 가져오기
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos1000")
+    const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const currentDayTodos = parsedTodos.find(
@@ -33,13 +34,13 @@ const MiddleTodo = () => {
         setTodos([])
       }
     }
-  }, [day])
+  }, [day, month])
 
   //todo add 했을때 localstorage 저장, 전역상태에 complated저장
   useEffect(() => {
     setReRender(!reRender)
     const dayTodo: dayTodo = { day: `${year}-${month}-${day}`, todo: todos }
-    const savedTodos = localStorage.getItem("todos1000")
+    const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const existingIndex = parsedTodos.findIndex(
@@ -50,9 +51,9 @@ const MiddleTodo = () => {
       } else {
         parsedTodos.push(dayTodo)
       }
-      localStorage.setItem("todos1000", JSON.stringify(parsedTodos))
+      localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
     } else {
-      localStorage.setItem("todos1000", JSON.stringify([dayTodo]))
+      localStorage.setItem("todos1002", JSON.stringify([dayTodo]))
     }
   }, [todos])
 

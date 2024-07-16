@@ -5,14 +5,7 @@ import RightTime from "@/app/components/podo/RightTime/RightTime"
 import { useBearStore } from "@/app/store/count"
 import useStore from "@/app/store/hydration"
 
-export default function TestComponent() {
-  // const bears = useStore(useBearStore, state => state)
-  // {
-  //   bears ? { bears } : undefined
-  // }
-  // console.log("test" + process.env.BASE_URL)
-  // console.log(process.env.NEXT_PUBLIC_NODE_ENV)
-  // console.log("sssdsd")
+export default function podoComponent() {
   return (
     <>
       {/* <button onClick={bears?.increaseBears}>Increase Bears</button> */}
