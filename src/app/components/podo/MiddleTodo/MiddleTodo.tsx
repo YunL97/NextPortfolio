@@ -32,7 +32,7 @@ const MiddleTodo = () => {
       )
       if (currentDayTodos) {
         setTodos(currentDayTodos.todo)
-        setLocalStudyTime(currentDayTodos.studyTime)
+        setLocalStudyTime(currentDayTodos.studyTime ?? 0)
       } else {
         setTodos([])
         setLocalStudyTime(0)
