@@ -50,7 +50,7 @@ const RightTime = () => {
 
       localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
     }
-  }, [isRunning])
+  }, [isRunning, seconds])
 
   const handleButtonClick = () => {
     if (isRunning) {

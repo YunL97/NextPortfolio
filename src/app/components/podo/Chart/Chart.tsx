@@ -29,7 +29,7 @@ const data = [
   {
     name: "Page C",
     uv: 2000,
-    pv: 9800,
+    pv: 12300,
     amt: 2290
   },
   {
@@ -81,7 +81,7 @@ const Chart = () => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
-        {/* <Tooltip /> */}
+        <Tooltip />
         <Legend />
         <Bar
           dataKey="pv"

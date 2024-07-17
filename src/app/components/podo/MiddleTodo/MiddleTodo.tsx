@@ -55,13 +55,6 @@ const MiddleTodo = () => {
       todo: todos,
       studyTime: localStudyTime
     }
-    if (parseInt(day) === nowday) {
-      dayTodo = {
-        day: `${year}-${month}-${day}`,
-        todo: todos,
-        studyTime: localStudyTime
-      }
-    }
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
