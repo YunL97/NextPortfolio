@@ -24,16 +24,24 @@ const RightTime = () => {
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
-      const currentDayTodos = parsedTodos.find(
-        item => item.day === `${year}-${month}-${day}`
+      console.log(
+        `${new Date().getFullYear().toString()}-${(
+          new Date().getMonth() + 1
+        ).toString()}-${new Date().getDate().toString()}`
       )
+      const currentDayTodos = parsedTodos.find(
+        item =>
+          item.day ===
+          `${new Date().getFullYear().toString()}-${(
+            new Date().getMonth() + 1
+          ).toString()}-${new Date().getDate().toString()}`
+      )
+      console.log(currentDayTodos)
       if (currentDayTodos?.studyTime) {
         setSeconds(currentDayTodos.studyTime)
-      } else {
-        setSeconds(0)
       }
     }
-  }, [day, month])
+  }, [])
 
   // 시작 멈춤했을 때 locolstorage에 저장
   useEffect(() => {
@@ -44,8 +52,13 @@ const RightTime = () => {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       console.log(parsedTodos)
       const existingIndex = parsedTodos.findIndex(
-        item => item.day === `${year}-${month}-${day}`
+        item =>
+          item.day ===
+          `${new Date().getFullYear().toString()}-${(
+            new Date().getMonth() + 1
+          ).toString()}-${new Date().getDate().toString()}`
       )
+      console.log(parsedTodos[existingIndex])
       parsedTodos[existingIndex].studyTime = seconds
 
       localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
