@@ -84,16 +84,14 @@ const RightTime = () => {
     <div className="bg-gray-100 h-full w-full items-center justify-center flex">
       <div className="text-center">
         <h1>{formatTime(seconds)}</h1>
-        <div className={`${today !== day ? "hidden" : ""}`}>
-          <button
-            className={`mt-4 px-4 py-2 rounded text-white ${
-              isRunning ? "bg-gray-500" : "bg-blue-500"
-            }`}
-            onClick={today === day ? handleButtonClick : undefined}
-          >
-            {isRunning ? "멈춤" : "시작"}
-          </button>
-        </div>
+        <button
+          className={`mt-4 px-4 py-2 rounded text-white ${
+            isRunning ? "bg-gray-500" : "bg-blue-500"
+          }`}
+          onClick={handleButtonClick}
+        >
+          {isRunning ? "멈춤" : "시작"}
+        </button>
       </div>
     </div>
   )
