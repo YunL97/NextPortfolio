@@ -47,6 +47,11 @@ const RightTime = () => {
   useEffect(() => {
     setReRender(!reRender)
     setStudyTime(seconds)
+    let dayTodo: dayTodo = {
+      day: `${year}-${month}-${day}`,
+      todo: [],
+      studyTime: seconds
+    }
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
@@ -58,10 +63,13 @@ const RightTime = () => {
             new Date().getMonth() + 1
           ).toString()}-${new Date().getDate().toString()}`
       )
-      console.log(parsedTodos[existingIndex])
-      parsedTodos[existingIndex].studyTime = seconds
+      console.log(parsedTodos[existingIndex]?.studyTime)
+      if (parsedTodos[existingIndex]?.studyTime != null)
+        parsedTodos[existingIndex].studyTime = seconds
 
       localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
+    } else {
+      localStorage.setItem("todos1002", JSON.stringify([dayTodo]))
     }
   }, [isRunning, seconds])
 
