@@ -46,10 +46,16 @@ const Calendar = () => {
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [todoLocalstorage, setTodoLocalstorage] = useState<dayTodo[] | []>([])
+
   const dat: Dat = { year: currentYear, month: currentMonth }
   const days = generateDaysInMonth(dat)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const todayRef = useRef<HTMLDivElement | null>(null)
+  const todayDate = new Date().getDate()
+  const todayMonth = new Date().getMonth()
+  const todayYear = new Date().getFullYear()
+
+  const today = `${todayYear}-${todayMonth}-${todayDate}`
   //오늘 날짜로 스크롤 이동
   useEffect(() => {
     if (todayRef.current) {
@@ -168,6 +174,7 @@ const Calendar = () => {
                 selectedDate={selectedDate}
                 studyTime={studyTime}
                 currentDate={currentDate}
+                today={today}
                 onClick={handleDateClick}
                 ref={
                   day.toDateString() === currentDate.toDateString()

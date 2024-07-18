@@ -49,10 +49,28 @@ const MiddleTodo = () => {
     setReRender(!reRender)
     const nowday = new Date().getDate()
     if (year == "" || month == "") return
+    console.log(
+      `${year}-${month}-${day}` ===
+        `${new Date().getFullYear().toString()}-${(
+          new Date().getMonth() + 1
+        ).toString()}-${new Date().getDate().toString()}`
+    )
+    console.log(`${year}-${month}-${day}`)
+    console.log(
+      `${new Date().getFullYear().toString()}-${(
+        new Date().getMonth() + 1
+      ).toString()}-${new Date().getDate().toString()}`
+    )
     let dayTodo: dayTodo = {
       day: `${year}-${month}-${day}`,
       todo: todos,
-      studyTime: localStudyTime
+      studyTime:
+        `${year}-${month}-${day}` ===
+        `${new Date().getFullYear().toString()}-${(
+          new Date().getMonth() + 1
+        ).toString()}-${new Date().getDate().toString()}`
+          ? studyTime
+          : localStudyTime
     }
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
@@ -62,6 +80,7 @@ const MiddleTodo = () => {
       )
       if (existingIndex > -1) {
         parsedTodos[existingIndex] = dayTodo
+        console.log(parsedTodos)
       } else {
         parsedTodos.push(dayTodo)
       }
@@ -93,9 +112,9 @@ const MiddleTodo = () => {
 
   return (
     <div className="bg-gray-100 h-full">
-      <div className="flex flex-col items-center p-4 ">
+      <div className="flex flex-col items-center p-4 h-full">
         <h1 className="text-2xl font-bold mb-4">Daily Calendar</h1>
-        <div className="flex mb-4 ">
+        <div className="flex mb-4 w-full">
           <input
             type="text"
             value={newTodo}
@@ -110,29 +129,33 @@ const MiddleTodo = () => {
             Add
           </button>
         </div>
-        <ul className="list-none p-0">
-          {todos.map(todo => (
-            <li key={todo.id} className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => handleToggleComplete(todo.id)}
-                className="mr-2"
-              />
-              <span
-                className={`flex-grow ${todo.completed ? "line-through" : ""}`}
-              >
-                {todo.text}
-              </span>
-              <button
-                onClick={() => handleDeleteTodo(todo.id)}
-                className="bg-red-500 text-white p-2 ml-2"
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="flex-col space-y-4 h-full w-full overflow-y-auto">
+          <ul className="list-none p-4 overflow-y-auto h-full">
+            {todos.map(todo => (
+              <li key={todo.id} className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  checked={todo.completed}
+                  onChange={() => handleToggleComplete(todo.id)}
+                  className="mr-2"
+                />
+                <span
+                  className={`flex-grow ${
+                    todo.completed ? "line-through" : ""
+                  }`}
+                >
+                  {todo.text}
+                </span>
+                <button
+                  onClick={() => handleDeleteTodo(todo.id)}
+                  className="bg-red-500 text-white p-2 ml-2"
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )

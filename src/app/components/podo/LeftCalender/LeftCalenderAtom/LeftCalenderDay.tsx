@@ -8,12 +8,15 @@ interface LeftCalenderDayProps {
   studyTime?: number
   selectedDate: Date | null
   currentDate: Date
+  today: String
   onClick: (day: Date) => void
 }
 
 //날짜
 const LeftCalenderDay = forwardRef(
   (props: LeftCalenderDayProps, ref?: React.Ref<HTMLDivElement>) => {
+    const nowday = `${props.day.getFullYear()}-${props.day.getMonth()}-${props.day.getDate()}`
+
     return (
       <button onClick={() => props.onClick(props.day)} className="w-full">
         <div
@@ -27,7 +30,10 @@ const LeftCalenderDay = forwardRef(
           ref={ref}
         >
           {props.day.getDate()} {props.complatedCount} / {props.todoCount}
-          <span className="mx-4">{formatTime(props.studyTime ?? 0)}</span>
+          <span className="mx-4">
+            {formatTime(props.studyTime ?? 0)}{" "}
+            {props.today === nowday ? "오늘" : ""}
+          </span>
         </div>
       </button>
     )
