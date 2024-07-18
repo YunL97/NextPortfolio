@@ -46,10 +46,9 @@ const MiddleTodo = () => {
       isFirstRender.current = false
       return
     }
-
     setReRender(!reRender)
     const nowday = new Date().getDate()
-
+    if (year == "" || month == "") return
     let dayTodo: dayTodo = {
       day: `${year}-${month}-${day}`,
       todo: todos,
@@ -66,6 +65,7 @@ const MiddleTodo = () => {
       } else {
         parsedTodos.push(dayTodo)
       }
+      console.log(parsedTodos)
       localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
     } else {
       localStorage.setItem("todos1002", JSON.stringify([dayTodo]))

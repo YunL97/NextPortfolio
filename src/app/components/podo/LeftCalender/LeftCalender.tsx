@@ -55,6 +55,8 @@ const Calendar = () => {
     if (todayRef.current) {
       todayRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
       setDay(currentDate.getDate().toString())
+      setMonth((currentDate.getMonth() + 1).toString())
+      setYear(currentDate.getFullYear().toString())
     }
   }, [])
   //데이터 가져오기
