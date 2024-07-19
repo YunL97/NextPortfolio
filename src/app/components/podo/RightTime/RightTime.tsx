@@ -24,11 +24,7 @@ const RightTime = () => {
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
-      console.log(
-        `${new Date().getFullYear().toString()}-${(
-          new Date().getMonth() + 1
-        ).toString()}-${new Date().getDate().toString()}`
-      )
+
       const currentDayTodos = parsedTodos.find(
         item =>
           item.day ===
@@ -52,10 +48,10 @@ const RightTime = () => {
       todo: [],
       studyTime: seconds
     }
+    if (year == "" || month == "") return
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
-      console.log(parsedTodos)
       const existingIndex = parsedTodos.findIndex(
         item =>
           item.day ===
@@ -63,6 +59,7 @@ const RightTime = () => {
             new Date().getMonth() + 1
           ).toString()}-${new Date().getDate().toString()}`
       )
+      console.log(parsedTodos)
       console.log(parsedTodos[existingIndex]?.studyTime)
       if (parsedTodos[existingIndex]?.studyTime != null)
         parsedTodos[existingIndex].studyTime = seconds

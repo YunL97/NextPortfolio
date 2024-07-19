@@ -49,18 +49,6 @@ const MiddleTodo = () => {
     setReRender(!reRender)
     const nowday = new Date().getDate()
     if (year == "" || month == "") return
-    console.log(
-      `${year}-${month}-${day}` ===
-        `${new Date().getFullYear().toString()}-${(
-          new Date().getMonth() + 1
-        ).toString()}-${new Date().getDate().toString()}`
-    )
-    console.log(`${year}-${month}-${day}`)
-    console.log(
-      `${new Date().getFullYear().toString()}-${(
-        new Date().getMonth() + 1
-      ).toString()}-${new Date().getDate().toString()}`
-    )
     let dayTodo: dayTodo = {
       day: `${year}-${month}-${day}`,
       todo: todos,
