@@ -21,22 +21,21 @@ interface LeftChartProps {
 }
 const LeftChart = (props: LeftChartProps) => {
   const { studyTime } = useDayStore()
-  const [selectDay, setSelectDay] = useState(props.selectDay)
+  // const [selectDay, setSelectDay] = useState(props.selectDay)
   const [data, setData] = useState<dayTodo[]>([])
 
   useEffect(() => {
-    console.log("asdf")
     const savedTodos = localStorage.getItem("todos1002")
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const today = new Date()
-      const thirtyDaysAgo = new Date()
-      thirtyDaysAgo.setDate(today.getDate() - props.selectDay)
+      const DaysAgo = new Date()
+      DaysAgo.setDate(today.getDate() - props.selectDay)
 
-      // 최근 30일 데이터 필터링
+      // 선택날짜 기간별 데이터 필터
       const filteredTodos = parsedTodos.filter(todo => {
         const todoDate = new Date(todo.day)
-        return todoDate >= thirtyDaysAgo && todoDate <= today
+        return todoDate >= DaysAgo && todoDate <= today && todo.studyTime !== 0
       })
 
       // 중복 제거
