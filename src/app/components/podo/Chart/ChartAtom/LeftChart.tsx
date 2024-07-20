@@ -13,12 +13,34 @@ import {
 } from "recharts"
 import { dayTodo } from "../../MiddleTodo/MiddleTodo"
 import { useDayStore } from "@/app/_store/nowday"
+import { formatTime } from "../../RightTime/RightTime"
 
 const data: dayTodo[] = []
 
 interface LeftChartProps {
   selectDay: number
 }
+
+const formatMinutesAndSeconds = (value: number) => {
+  const minutes = Math.floor(value / 60)
+  const seconds = value % 60
+  return `${minutes}분 ${seconds}초`
+}
+
+const customizedGroupTick = (props: any) => {
+  const { index, x, y, payload } = props
+  console.log(x, y, payload.value)
+  return (
+    <g>
+      <g>
+        <text x={x} y={y} className="text-xs " textAnchor="end" fill="#666">
+          {formatMinutesAndSeconds(payload.value)}
+        </text>
+      </g>
+    </g>
+  )
+}
+
 const LeftChart = (props: LeftChartProps) => {
   const { studyTime } = useDayStore()
   // const [selectDay, setSelectDay] = useState(props.selectDay)
@@ -61,9 +83,8 @@ const LeftChart = (props: LeftChartProps) => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="day" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
+        <YAxis tickFormatter={formatTime} tick={customizedGroupTick} />
+        <Tooltip cursor={false} />
         <Bar
           dataKey="studyTime"
           fill="#8884d8"

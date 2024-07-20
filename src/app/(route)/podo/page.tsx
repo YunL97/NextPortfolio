@@ -23,7 +23,7 @@ export default function podoComponent() {
             <RightTime />
           </div>
         </div>
-        <div className="md:h-1/3">
+        <div className="md:h-1/3 pr-5">
           <Chart />
         </div>
       </div>

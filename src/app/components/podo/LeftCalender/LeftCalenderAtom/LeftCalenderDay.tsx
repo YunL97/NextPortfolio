@@ -29,7 +29,7 @@ const LeftCalenderDay = forwardRef(
           }`}
           ref={ref}
         >
-          {props.day.getDate()} {props.complatedCount} / {props.todoCount}
+          {props.day.getDate()}일 ({props.complatedCount} / {props.todoCount})
           <span className="mx-4">
             {formatTime(props.studyTime ?? 0)}{" "}
             {props.today === nowday ? "오늘" : ""}
