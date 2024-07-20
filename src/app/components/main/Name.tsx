@@ -1,6 +1,4 @@
-import TestComponent from "@/app/(route)/podo/page"
-
-import Skills from "./Skill/skills"
+import TestComponent from "@/app/(route)/LocalPodo/page"
 
 const Name = () => (
   <div className="justify-center w-full  font-bold text-blac items-end h-80 flex items-center">
