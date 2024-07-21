@@ -84,7 +84,10 @@ const LeftChart = (props: LeftChartProps) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="day" />
         <YAxis tickFormatter={formatTime} tick={customizedGroupTick} />
-        <Tooltip cursor={false} />
+        <Tooltip
+          cursor={false}
+          formatter={value => formatMinutesAndSeconds(value as number)}
+        />
         <Bar
           dataKey="studyTime"
           fill="#8884d8"
