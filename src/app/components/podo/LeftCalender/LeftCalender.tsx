@@ -54,8 +54,22 @@ const Calendar = () => {
   const todayDate = new Date().getDate()
   const todayMonth = new Date().getMonth()
   const todayYear = new Date().getFullYear()
+  const [isClient, setIsClient] = useState(false)
 
   const today = `${todayYear}-${todayMonth}-${todayDate}`
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    if (isClient) {
+      alert(`이 페이지는 포트폴리오 페이지입니다.
+데이터가 사라질 수 있습니다.
+로그인시 로그인 하지 않았을때의 데이터가 없어집니다`)
+    }
+  }, [isClient])
+
   //오늘 날짜로 스크롤 이동
   useEffect(() => {
     if (todayRef.current) {
