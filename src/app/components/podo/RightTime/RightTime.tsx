@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from "react"
 import { dayTodo } from "../MiddleTodo/MiddleTodo"
 import LoginModal from "../Modal/LoginModal"
 import { formatMinutesAndSeconds } from "../Chart/ChartAtom/LeftChart"
+import { useLoginStore } from "@/app/_store/login"
+import axios from "axios"
 
 const RightTime = () => {
   const { day, month, year, reRender, setReRender, setStudyTime } =
     useDayStore()
+  const { login } = useLoginStore()
   const [seconds, setSeconds] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -49,7 +52,7 @@ const RightTime = () => {
 
   // 시작 멈춤했을 때 locolstorage에 저장
   useEffect(() => {
-    document.title = `Study Time: ${formatMinutesAndSeconds(seconds)}`
+    document.title = `${formatMinutesAndSeconds(seconds)}`
     setReRender(!reRender)
     setStudyTime(seconds)
     let dayTodo: dayTodo = {
@@ -79,7 +82,9 @@ const RightTime = () => {
     }
   }, [isRunning, seconds])
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
+    const response = await axios.get("https://yunl97.store/users")
+    console.log(response)
     if (isRunning) {
       // 타이머를 멈춤
       if (intervalRef.current) {
@@ -100,11 +105,9 @@ const RightTime = () => {
       <div className="flex w-full justify-end pr-3">
         <button
           onClick={handleLoginClick}
-          className={`mt-4 px-4 py-2 rounded text-white ${
-            isRunning ? "bg-gray-500" : "bg-blue-500"
-          } `}
+          className={`mt-4 px-4 py-2 rounded text-white bg-blue-500`}
         >
-          {isRunning ? "멈춤" : "로그인/회원가입"}
+          {login ? "로그아웃" : "로그인/회원가입"}
         </button>
       </div>
       <div className="flex items-center justify-center  h-full w-full ">
