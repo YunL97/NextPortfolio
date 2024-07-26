@@ -10,15 +10,19 @@ import axios from "axios"
 const RightTime = () => {
   const { day, month, year, reRender, setReRender, setStudyTime } =
     useDayStore()
-  const { login } = useLoginStore()
+  const { login, myMail, setLogin, setMyMail } = useLoginStore()
   const [seconds, setSeconds] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const today = new Date().getDate().toString()
   const [showModal, setShowModal] = useState(false)
-  const [test, setTest] = useState("")
+
   const handleLoginClick = () => {
     setShowModal(true)
+  }
+  const handleLogoutClick = () => {
+    setLogin(false)
+    setMyMail("")
   }
 
   useEffect(() => {
@@ -71,8 +75,6 @@ const RightTime = () => {
             new Date().getMonth() + 1
           ).toString()}-${new Date().getDate().toString()}`
       )
-      console.log(parsedTodos)
-      console.log(parsedTodos[existingIndex]?.studyTime)
       if (parsedTodos[existingIndex]?.studyTime != null)
         parsedTodos[existingIndex].studyTime = seconds
 
@@ -84,8 +86,6 @@ const RightTime = () => {
 
   const handleButtonClick = async () => {
     const response = await axios.get("https://yunl97.store/users")
-    console.log(response)
-    setTest(response.data[0].name)
     if (isRunning) {
       // 타이머를 멈춤
       if (intervalRef.current) {
@@ -105,7 +105,7 @@ const RightTime = () => {
       <LoginModal showModal={showModal} setShowModal={setShowModal} />
       <div className="flex w-full justify-end pr-3">
         <button
-          onClick={handleLoginClick}
+          onClick={login ? handleLogoutClick : handleLoginClick}
           className={`mt-4 px-4 py-2 rounded text-white bg-blue-500`}
         >
           {login ? "로그아웃" : "로그인/회원가입"}
@@ -120,7 +120,6 @@ const RightTime = () => {
             }`}
             onClick={handleButtonClick}
           >
-            {test}
             {isRunning ? "멈춤" : "시작"}
           </button>
         </div>

@@ -3,9 +3,11 @@
 import { useState } from "react"
 import { FormProps } from "../LoginModal"
 import axios from "axios"
+import { useLoginStore } from "@/app/_store/login"
 
-const SignupForm = ({ setIsLogin }: FormProps) => {
-  const [email, setEmail] = useState("")
+const SignupForm = ({ setIsLogin, setShowModal }: FormProps) => {
+  const { setLogin, setMyMail } = useLoginStore()
+  const [mail, setMail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
@@ -13,15 +15,39 @@ const SignupForm = ({ setIsLogin }: FormProps) => {
     e.preventDefault()
     try {
       const response = await axios.post("https://yunl97.store/signup", {
-        email,
+        mail,
         password,
         confirmPassword
       })
-      console.log(response.data)
+      if (response.data.message === "0") {
+        console.log("회원가입 완료")
+        setMyMail(response.data.mail)
+        setLogin(true)
+        setShowModal(false)
+      } else {
+        console.log("회원가입 실패")
+      }
       // 응답 데이터 처리
     } catch (error) {
-      console.error(error)
-      // 오류 처리
+      if (axios.isAxiosError(error)) {
+        // Axios에서 발생한 오류인 경우
+        console.error("Error message:", error.message)
+
+        if (error.response) {
+          // 서버가 응답을 반환한 경우
+          console.error("Status code:", error.response.status)
+          console.error("Response data:", error.response.data.message)
+        } else if (error.request) {
+          // 요청이 서버에 도달하지 못한 경우
+          console.error("Request data:", error.request)
+        } else {
+          // 설정 중 오류가 발생한 경우
+          console.error("Error configuration:", error.config)
+        }
+      } else {
+        // Axios 외의 오류인 경우
+        console.error("Unexpected error:", error)
+      }
     }
   }
 
@@ -37,8 +63,8 @@ const SignupForm = ({ setIsLogin }: FormProps) => {
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          value={mail}
+          onChange={e => setMail(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
           required
         />

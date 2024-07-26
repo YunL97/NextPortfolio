@@ -29,7 +29,7 @@ export const formatMinutesAndSeconds = (value: number) => {
 
 const customizedGroupTick = (props: any) => {
   const { index, x, y, payload } = props
-  console.log(x, y, payload.value)
+  // console.log(x, y, payload.value)
   return (
     <g>
       <g>
