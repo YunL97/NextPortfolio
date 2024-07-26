@@ -16,7 +16,7 @@ const RightTime = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const today = new Date().getDate().toString()
   const [showModal, setShowModal] = useState(false)
-
+  const [test, setTest] = useState("")
   const handleLoginClick = () => {
     setShowModal(true)
   }
@@ -85,6 +85,7 @@ const RightTime = () => {
   const handleButtonClick = async () => {
     const response = await axios.get("https://yunl97.store/users")
     console.log(response)
+    setTest(response.data[0].name)
     if (isRunning) {
       // 타이머를 멈춤
       if (intervalRef.current) {
@@ -119,6 +120,7 @@ const RightTime = () => {
             }`}
             onClick={handleButtonClick}
           >
+            {test}
             {isRunning ? "멈춤" : "시작"}
           </button>
         </div>
