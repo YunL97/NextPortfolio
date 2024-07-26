@@ -21,7 +21,7 @@ interface LeftChartProps {
   selectDay: number
 }
 
-const formatMinutesAndSeconds = (value: number) => {
+export const formatMinutesAndSeconds = (value: number) => {
   const minutes = Math.floor(value / 60)
   const seconds = value % 60
   return `${minutes}분 ${seconds}초`

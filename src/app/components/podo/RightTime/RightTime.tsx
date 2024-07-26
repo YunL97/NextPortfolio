@@ -2,6 +2,8 @@
 import { useDayStore } from "@/app/_store/nowday"
 import { useEffect, useRef, useState } from "react"
 import { dayTodo } from "../MiddleTodo/MiddleTodo"
+import LoginModal from "../Modal/LoginModal"
+import { formatMinutesAndSeconds } from "../Chart/ChartAtom/LeftChart"
 
 const RightTime = () => {
   const { day, month, year, reRender, setReRender, setStudyTime } =
@@ -10,6 +12,12 @@ const RightTime = () => {
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const today = new Date().getDate().toString()
+  const [showModal, setShowModal] = useState(false)
+
+  const handleLoginClick = () => {
+    setShowModal(true)
+  }
+
   useEffect(() => {
     return () => {
       // 리턴하면 언마운트될 때 실행되는 함수
@@ -41,6 +49,7 @@ const RightTime = () => {
 
   // 시작 멈춤했을 때 locolstorage에 저장
   useEffect(() => {
+    document.title = `Study Time: ${formatMinutesAndSeconds(seconds)}`
     setReRender(!reRender)
     setStudyTime(seconds)
     let dayTodo: dayTodo = {
@@ -86,17 +95,30 @@ const RightTime = () => {
   }
 
   return (
-    <div className="bg-gray-100 h-full w-full items-center justify-center flex">
-      <div className="text-center">
-        <h1>{formatTime(seconds)}</h1>
+    <div className="bg-gray-100 h-full w-full ">
+      <LoginModal showModal={showModal} setShowModal={setShowModal} />
+      <div className="flex w-full justify-end pr-3">
         <button
+          onClick={handleLoginClick}
           className={`mt-4 px-4 py-2 rounded text-white ${
             isRunning ? "bg-gray-500" : "bg-blue-500"
-          }`}
-          onClick={handleButtonClick}
+          } `}
         >
-          {isRunning ? "멈춤" : "시작"}
+          {isRunning ? "멈춤" : "로그인/회원가입"}
         </button>
+      </div>
+      <div className="flex items-center justify-center  h-full w-full ">
+        <div className="text-center">
+          <h1>{formatTime(seconds)}</h1>
+          <button
+            className={`mt-4 px-4 py-2 rounded text-white ${
+              isRunning ? "bg-gray-500" : "bg-blue-500"
+            }`}
+            onClick={handleButtonClick}
+          >
+            {isRunning ? "멈춤" : "시작"}
+          </button>
+        </div>
       </div>
     </div>
   )
