@@ -18,15 +18,12 @@ const FrontSkill = () => {
           />
           <img src="/Vue.svg" alt="Vue.js" className="h-8 mr-2 mb-2" />
           <img src="/React.svg" alt="React" className="h-8 mr-2 mb-2" />
-          <img src="/NextJS-Dark.svg" alt="Next.js" className="h-8 mr-2 mb-2" />
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg shadow-lg flex-shrink-0 mb-3">
         <h2 className="text-red-500 font-bold mb-2">Backend</h2>
         <div className="flex flex-wrap">
           <img src="/NodeJS.svg" alt="Node.js" className="h-8 mr-2 mb-2" />
-          <img src="/Python-Dark.svg" alt="Python" className="h-8 mr-2 mb-2" />
-          <img src="/FastAPI.svg" alt="FastAPI" className="h-8 mr-2 mb-2" />
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg shadow-lg flex-shrink-0 mb-3">

@@ -10,9 +10,17 @@ const SignupForm = ({ setIsLogin, setShowModal }: FormProps) => {
   const [mail, setMail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // 비밀번호와 비밀번호 확인 비교
+    if (password !== confirmPassword) {
+      setErrorMessage("비밀번호가 일치하지 않습니다.")
+      return
+    }
+
     try {
       const response = await axios.post("https://yunl97.store/signup", {
         mail,
@@ -26,27 +34,26 @@ const SignupForm = ({ setIsLogin, setShowModal }: FormProps) => {
         setShowModal(false)
       } else {
         console.log("회원가입 실패")
+        setErrorMessage("회원가입 실패: " + response.data.message)
       }
-      // 응답 데이터 처리
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        // Axios에서 발생한 오류인 경우
         console.error("Error message:", error.message)
 
         if (error.response) {
-          // 서버가 응답을 반환한 경우
           console.error("Status code:", error.response.status)
           console.error("Response data:", error.response.data.message)
+          setErrorMessage("회원가입 실패: " + error.response.data.message)
         } else if (error.request) {
-          // 요청이 서버에 도달하지 못한 경우
           console.error("Request data:", error.request)
+          setErrorMessage("서버에 도달할 수 없습니다.")
         } else {
-          // 설정 중 오류가 발생한 경우
           console.error("Error configuration:", error.config)
+          setErrorMessage("설정 오류 발생.")
         }
       } else {
-        // Axios 외의 오류인 경우
         console.error("Unexpected error:", error)
+        setErrorMessage("예기치 않은 오류가 발생했습니다.")
       }
     }
   }
@@ -101,6 +108,7 @@ const SignupForm = ({ setIsLogin, setShowModal }: FormProps) => {
           required
         />
       </div>
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       <button
         type="submit"
         className="w-full bg-blue-500 text-white px-4 py-2 rounded-md"
