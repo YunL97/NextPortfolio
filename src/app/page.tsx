@@ -6,6 +6,7 @@ import Skills from "./components/main/Skill/skills"
 import TopNavigation from "./components/main/TopNavigation"
 import Projects from "./components/main/projects/Projects"
 import Careers from "./components/main/career/Careers"
+import Link from "next/link"
 
 export default function Home() {
   const targetRef1 = useRef<HTMLDivElement>(null)
@@ -29,7 +30,9 @@ export default function Home() {
         <Careers />
       </div>
       {/*projects*/}
-      <Projects />
+      <div ref={targetRef3}>
+        <Projects />
+      </div>
     </>
   )
 }

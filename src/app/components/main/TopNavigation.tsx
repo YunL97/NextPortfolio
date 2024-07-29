@@ -29,8 +29,17 @@ const TopNavigation: React.FC<ButtonComponentProps> = ({ refs }) => {
         onClick={() => scrollToElement(2)}
         className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800"
       >
-        About me
+        Project
       </button>
+      <a
+        href="https://github.com/YunL97"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <button className="mt-5 mr-5 text-lg font-bold text-gray-600 transition duration-300 cursor-default hover:text-gray-800">
+          GitHub
+        </button>
+      </a>
     </>
   )
 }
