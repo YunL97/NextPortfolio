@@ -3,6 +3,7 @@ import { useState } from "react"
 import { FormProps } from "../LoginModal"
 import axios from "axios"
 import { useLoginStore } from "@/app/_store/login"
+import api from "@/app/hooks/intercepter"
 
 const LoginForm = ({ setIsLogin, setShowModal }: FormProps) => {
   const { setLogin, setMyMail } = useLoginStore()
@@ -12,12 +13,14 @@ const LoginForm = ({ setIsLogin, setShowModal }: FormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await axios.post("https://yunl97.store/login", {
+      const response = await api.post("/login", {
         mail,
         password
       })
       if (response.data.message === "0") {
         console.log("로그인 완료")
+        localStorage.setItem("accessToken", response.data.token)
+        localStorage.setItem("refreshToken", response.data.refreshToken)
         setMyMail(response.data.mail)
         setLogin(true)
         setShowModal(false)
