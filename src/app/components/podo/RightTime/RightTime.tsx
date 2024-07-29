@@ -19,6 +19,16 @@ const RightTime = () => {
 
   const handleLoginClick = () => {
     setShowModal(true)
+    fetch("/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ token: localStorage.getItem("refreshToken") })
+    }).then(() => {
+      localStorage.removeItem("accessToken")
+      localStorage.removeItem("refreshToken")
+    })
   }
   const handleLogoutClick = () => {
     setLogin(false)
