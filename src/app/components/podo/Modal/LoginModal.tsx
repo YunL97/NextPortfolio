@@ -8,7 +8,7 @@ interface LoginModalProps {
 }
 
 export interface FormProps {
-  setIsLogin: (value: boolean) => void
+  setIsLogin: (value: boolean) => void //회원가입이 되어있는지?
   setShowModal: (value: boolean) => void
 }
 

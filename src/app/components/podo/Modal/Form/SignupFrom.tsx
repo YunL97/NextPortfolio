@@ -31,6 +31,7 @@ const SignupForm = ({ setIsLogin, setShowModal }: FormProps) => {
         console.log("회원가입 완료")
         setMyMail(response.data.mail)
         setLogin(true)
+        setIsLogin(true)
         setShowModal(false)
       } else {
         console.log("회원가입 실패")
