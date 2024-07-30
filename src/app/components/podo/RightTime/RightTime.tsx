@@ -16,9 +16,12 @@ const RightTime = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const today = new Date().getDate().toString()
   const [showModal, setShowModal] = useState(false)
-
   const handleLoginClick = () => {
     setShowModal(true)
+  }
+  const handleLogoutClick = () => {
+    setLogin(false)
+    setMyMail("")
     fetch("/logout", {
       method: "POST",
       headers: {
@@ -29,10 +32,6 @@ const RightTime = () => {
       localStorage.removeItem("accessToken")
       localStorage.removeItem("refreshToken")
     })
-  }
-  const handleLogoutClick = () => {
-    setLogin(false)
-    setMyMail("")
   }
 
   useEffect(() => {

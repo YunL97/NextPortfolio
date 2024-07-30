@@ -21,12 +21,6 @@ const FrontSkill = () => {
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg shadow-lg flex-shrink-0 mb-3">
-        <h2 className="text-red-500 font-bold mb-2">Backend</h2>
-        <div className="flex flex-wrap">
-          <img src="/NodeJS.svg" alt="Node.js" className="h-8 mr-2 mb-2" />
-        </div>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow-lg flex-shrink-0 mb-3">
         <h2 className="text-red-500 font-bold mb-2">Mobile App</h2>
         <div className="flex flex-wrap">
           <img src="/Dart-Light.svg" alt="Dart" className="h-8 mr-2 mb-2" />
