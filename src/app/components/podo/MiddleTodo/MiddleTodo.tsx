@@ -128,7 +128,7 @@ const MiddleTodo = () => {
                   className="mr-2"
                 />
                 <span
-                  className={`flex-grow ${
+                  className={`flex-grow break-words${
                     todo.completed ? "line-through" : ""
                   }`}
                 >
