@@ -5,6 +5,7 @@ import LeftCalenderDay from "./LeftCalenderAtom/LeftCalenderDay"
 import LeftCalenderButton from "./LeftCalenderAtom/LeftCalenderButton"
 import { useDayStore } from "@/app/_store/nowday"
 import { dayTodo } from "../MiddleTodo/MiddleTodo"
+import { useLoginStore } from "@/app/_store/login"
 
 interface Dat {
   year: number
@@ -40,7 +41,7 @@ const monthNames = [
 const Calendar = () => {
   const { day, month, year, reRender, setDay, setMonth, setYear } =
     useDayStore()
-
+  const { login, data } = useLoginStore()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth())
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear())
@@ -83,12 +84,21 @@ const Calendar = () => {
   }, [])
   //데이터 가져오기
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos1002")
-    if (savedTodos) {
-      setTodoLocalstorage(JSON.parse(savedTodos))
+    if (login) {
+      const savedTodos = data.toString()
+      if (savedTodos) {
+        setTodoLocalstorage(JSON.parse(savedTodos))
+      } else {
+        setTodoLocalstorage([])
+      }
+    } else {
+      const savedTodos = localStorage.getItem("todos1002")
+      if (savedTodos) {
+        setTodoLocalstorage(JSON.parse(savedTodos))
+      }
     }
     // console.log(day, month, year)
-  }, [day, currentMonth, reRender])
+  }, [day, currentMonth, reRender, login])
 
   const handlePrevMonth = useCallback(() => {
     if (currentMonth === 0) {

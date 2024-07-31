@@ -1,5 +1,6 @@
 "use client"
 
+import { useLoginStore } from "@/app/_store/login"
 import { useDayStore } from "@/app/_store/nowday"
 import { useState, useEffect, useRef } from "react"
 
@@ -17,6 +18,7 @@ export interface dayTodo {
 
 const MiddleTodo = () => {
   const { day, month, year, reRender, studyTime, setReRender } = useDayStore()
+  const { login, data } = useLoginStore()
   const [todos, setTodos] = useState<Todo[]>([])
   const [localStudyTime, setLocalStudyTime] = useState(0)
   const [newTodo, setNewTodo] = useState("")
@@ -24,7 +26,12 @@ const MiddleTodo = () => {
   const isFirstRender = useRef(true)
   //현재 날짜 todo, 공부시간 가져오기
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos1002")
+    let savedTodos: string = ""
+    if (login) {
+      savedTodos = data.toString()
+    } else {
+      savedTodos = localStorage.getItem("todos1002") ?? ""
+    }
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const currentDayTodos = parsedTodos.find(
@@ -37,8 +44,11 @@ const MiddleTodo = () => {
         setTodos([])
         setLocalStudyTime(0)
       }
+    } else {
+      setTodos([])
+      setLocalStudyTime(0)
     }
-  }, [day, month])
+  }, [day, month, data, login])
 
   //todo add 했을때 localstorage 저장, 전역상태에 complated저장
   useEffect(() => {
@@ -60,7 +70,12 @@ const MiddleTodo = () => {
           ? studyTime
           : localStudyTime
     }
-    const savedTodos = localStorage.getItem("todos1002")
+    let savedTodos: string = ""
+    if (login) {
+      savedTodos = data.toString()
+    } else {
+      savedTodos = localStorage.getItem("todos1002") ?? ""
+    }
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const existingIndex = parsedTodos.findIndex(
@@ -68,14 +83,18 @@ const MiddleTodo = () => {
       )
       if (existingIndex > -1) {
         parsedTodos[existingIndex] = dayTodo
-        console.log(parsedTodos)
       } else {
         parsedTodos.push(dayTodo)
       }
-      console.log(parsedTodos)
-      localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
+      if (login) {
+      } else {
+        localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
+      }
     } else {
-      localStorage.setItem("todos1002", JSON.stringify([dayTodo]))
+      if (login) {
+      } else {
+        localStorage.setItem("todos1002", JSON.stringify([dayTodo]))
+      }
     }
   }, [todos, localStudyTime])
 

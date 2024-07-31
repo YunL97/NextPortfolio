@@ -21,6 +21,7 @@ const LoginForm = ({ setIsLogin, setShowModal }: FormProps) => {
         console.log("로그인 완료")
         localStorage.setItem("accessToken", response.data.token)
         localStorage.setItem("refreshToken", response.data.refreshToken)
+        console.log(response.data.user)
         setMyMail(response.data.mail)
         setLogin(true)
         setShowModal(false)
