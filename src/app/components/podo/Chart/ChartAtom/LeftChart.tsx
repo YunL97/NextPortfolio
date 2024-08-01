@@ -14,8 +14,7 @@ import {
 import { dayTodo } from "../../MiddleTodo/MiddleTodo"
 import { useDayStore } from "@/app/_store/nowday"
 import { formatTime } from "../../RightTime/RightTime"
-
-const data: dayTodo[] = []
+import { useLoginStore } from "@/app/_store/login"
 
 interface LeftChartProps {
   selectDay: number
@@ -43,11 +42,17 @@ const customizedGroupTick = (props: any) => {
 
 const LeftChart = (props: LeftChartProps) => {
   const { studyTime } = useDayStore()
+  const { login, myMail, data, setLogin, setMyMail, setData } = useLoginStore()
   // const [selectDay, setSelectDay] = useState(props.selectDay)
-  const [data, setData] = useState<dayTodo[]>([])
+  const [todoData, setTodoData] = useState<dayTodo[]>([])
 
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos1002")
+    let savedTodos: string = ""
+    if (login) {
+      savedTodos = data.toString()
+    } else {
+      savedTodos = localStorage.getItem("todos1002") ?? ""
+    }
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const today = new Date()
@@ -65,7 +70,9 @@ const LeftChart = (props: LeftChartProps) => {
         (todo, index, self) => index === self.findIndex(t => t.day === todo.day)
       )
 
-      setData(uniqueTodos)
+      setTodoData(uniqueTodos)
+    } else {
+      setTodoData([])
     }
   }, [studyTime, props.selectDay])
   return (
@@ -73,7 +80,7 @@ const LeftChart = (props: LeftChartProps) => {
       <BarChart
         width={500}
         height={300}
-        data={data}
+        data={todoData}
         margin={{
           top: 5,
           right: 30,

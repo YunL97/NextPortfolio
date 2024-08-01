@@ -10,7 +10,7 @@ import axios from "axios"
 const RightTime = () => {
   const { day, month, year, reRender, setReRender, setStudyTime } =
     useDayStore()
-  const { login, myMail, setLogin, setMyMail } = useLoginStore()
+  const { login, myMail, data, setLogin, setMyMail, setData } = useLoginStore()
   const [seconds, setSeconds] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -45,7 +45,12 @@ const RightTime = () => {
   }, [])
   //현재 날짜 공부시간 가져오기
   useEffect(() => {
-    const savedTodos = localStorage.getItem("todos1002")
+    let savedTodos: string = ""
+    if (login) {
+      savedTodos = data.toString()
+    } else {
+      savedTodos = localStorage.getItem("todos1002") ?? ""
+    }
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
 
@@ -60,8 +65,10 @@ const RightTime = () => {
       if (currentDayTodos?.studyTime) {
         setSeconds(currentDayTodos.studyTime)
       }
+    } else {
+      setSeconds(0)
     }
-  }, [])
+  }, [login])
 
   // 시작 멈춤했을 때 locolstorage에 저장
   useEffect(() => {
@@ -74,7 +81,12 @@ const RightTime = () => {
       studyTime: seconds
     }
     if (year == "" || month == "") return
-    const savedTodos = localStorage.getItem("todos1002")
+    let savedTodos: string = ""
+    if (login) {
+      savedTodos = data.toString()
+    } else {
+      savedTodos = localStorage.getItem("todos1002") ?? ""
+    }
     if (savedTodos) {
       const parsedTodos: dayTodo[] = JSON.parse(savedTodos)
       const existingIndex = parsedTodos.findIndex(
@@ -87,9 +99,15 @@ const RightTime = () => {
       if (parsedTodos[existingIndex]?.studyTime != null)
         parsedTodos[existingIndex].studyTime = seconds
 
-      localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
+      if (login) {
+      } else {
+        localStorage.setItem("todos1002", JSON.stringify(parsedTodos))
+      }
     } else {
-      localStorage.setItem("todos1002", JSON.stringify([dayTodo]))
+      if (login) {
+      } else {
+        localStorage.setItem("todos1002", JSON.stringify([dayTodo]))
+      }
     }
   }, [isRunning, seconds])
 
