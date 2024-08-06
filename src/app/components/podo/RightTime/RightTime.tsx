@@ -112,7 +112,6 @@ const RightTime = () => {
   }, [isRunning, seconds])
 
   const handleButtonClick = async () => {
-    const response = await axios.get("https://yunl97.store/users")
     if (isRunning) {
       // 타이머를 멈춤
       if (intervalRef.current) {
