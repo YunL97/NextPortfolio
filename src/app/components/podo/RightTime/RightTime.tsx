@@ -129,14 +129,14 @@ const RightTime = () => {
   return (
     <div className="bg-gray-100 h-full w-full ">
       <LoginModal showModal={showModal} setShowModal={setShowModal} />
-      <div className="flex w-full justify-end pr-3">
+      {/* <div className="flex w-full justify-end pr-3">
         <button
           onClick={login ? handleLogoutClick : handleLoginClick}
           className={`mt-4 px-4 py-2 rounded text-white bg-blue-500`}
         >
           {login ? "로그아웃" : "로그인/회원가입"}
         </button>
-      </div>
+      </div> */}
       <div className="flex items-center justify-center  h-full w-full ">
         <div className="text-center">
           <h1>{formatTime(seconds)}</h1>
