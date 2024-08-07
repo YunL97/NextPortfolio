@@ -128,7 +128,7 @@ const RightTime = () => {
 
   return (
     <div className="bg-gray-100 h-full w-full ">
-      <LoginModal showModal={showModal} setShowModal={setShowModal} />
+      {/* <LoginModal showModal={showModal} setShowModal={setShowModal} />
       <div className="flex w-full justify-end pr-3">
         <button
           onClick={login ? handleLogoutClick : handleLoginClick}
@@ -136,7 +136,7 @@ const RightTime = () => {
         >
           {login ? "로그아웃" : "로그인/회원가입"}
         </button>
-      </div>
+      </div> */}
       <div className="flex items-center justify-center  h-full w-full ">
         <div className="text-center">
           <h1>{formatTime(seconds)}</h1>
