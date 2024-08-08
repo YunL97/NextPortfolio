@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-gray-200 h-96">
+      <div className="bg-gray-200 h-auto">
         <div className="inset-0 flex justify-end w-11/12 max-w-full ">
           <TopNavigation refs={[targetRef1, targetRef2, targetRef3]} />
         </div>
