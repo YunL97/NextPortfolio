@@ -8,7 +8,7 @@ const Name = () => (
     {/* <TestComponent /> */}
     <div className="whitespace-pre-line text-center pb-10">
       {`안녕하세요. 개발자 이윤식입니다. 
-      저는 코어닥스라는 가상자산 회사에서
+      저는 코어닥스라는 가상자산 거래소에서
   flutter 프레임워크로 코어닥스 어플리케이션 개발,
    코어닥스 웹어플리케이션을 vue.js로 개발,
   value-n 웹을 react로 개발을 했습니다.
